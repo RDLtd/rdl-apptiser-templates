@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-id="{{ id }}" data-template-version="3.0.16" data-template-brand="apptiser" xmlns="http://www.w3.org/1999/html">
+<html lang="en" data-id="{{ id }}" data-template-version="3.0.18" data-template-brand="apptiser" xmlns="http://www.w3.org/1999/html">
 <head>
 	<meta charset="utf-8">
     <title>{{ name }} |  {{ postalCode }}</title>
@@ -50,7 +50,7 @@
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="https://assets.apptiser.io/images/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="https://assets.apptiser.io/images/apple-touch-icon.png">
-    <link rel="manifest" href="https://assets.apptiser.io/manifest.json?v=3.0.16">
+    <link rel="manifest" href="https://assets.apptiser.io/manifest.json?v=3.0.18">
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,13 +66,13 @@
               href="https://fonts.googleapis.com/css2?family=Antonio:wght@200&display=swap">
     </noscript>
 
-    <link rel="stylesheet" href="https://assets.apptiser.io/styles/themes/apptiser.css?v=3.0.16" />
+    <link rel="stylesheet" href="https://assets.apptiser.io/styles/themes/apptiser.css?v=3.0.18" />
 
-	<link rel="stylesheet" href="https://assets.apptiser.io/styles/bundle-main.css?v=3.0.16" />
+	<link rel="stylesheet" href="https://assets.apptiser.io/styles/bundle-main.css?v=3.0.18" />
 
-	<script type="module" src="https://assets.apptiser.io/scripts/bundle-main.js?v=3.0.16" defer></script>
+	<script type="module" src="https://assets.apptiser.io/scripts/bundle-main.js?v=3.0.18" defer></script>
 
-    <script type="module" src="https://assets.apptiser.io/scripts/bundle-booking-widgets.js?v=3.0.16" defer></script>
+    <script type="module" src="https://assets.apptiser.io/scripts/bundle-booking-widgets.js?v=3.0.18" defer></script>
 
     <script defer src="https://www.googletagmanager.com/gtag/js?id=G-4FPKM2SVKM"></script>
     <script>
@@ -138,15 +138,6 @@
         </li>
         <!-- /RDL TAKEAWAY NAV -->
         
-        <!-- RDL ROOMS NAV -->
-        <li>
-            <a href="#rooms"
-               aria-label="{{ name }} Room Bookings">
-                Room Bookings
-            </a>
-        </li>
-        <!-- /RDL ROOMS NAV -->
-        
         <!-- RDL RESERVATIONS NAV -->
         <li>
             <a href="#reservations"
@@ -155,6 +146,15 @@
             </a>
         </li>
         <!-- /RDL RESERVATIONS NAV -->
+        
+        <!-- RDL ROOMS NAV -->
+        <li>
+            <a href="#rooms"
+               aria-label="{{ name }} Room Bookings">
+                Room Bookings
+            </a>
+        </li>
+        <!-- /RDL ROOMS NAV -->
         
         <li class="hidden" data-elem-event>
             <a href="#events"
@@ -222,15 +222,6 @@
             </li>
             <!-- /RDL TAKEAWAY NAV -->
             
-            <!-- RDL ROOMS NAV -->
-            <li>
-                <a href="#rooms"
-                   aria-label="{{ name }} Room Bookings">
-                    Room Bookings
-                </a>
-            </li>
-            <!-- /RDL ROOMS NAV -->
-            
             <!-- RDL RESERVATIONS NAV -->
             <li>
                 <a href="#reservations"
@@ -239,6 +230,15 @@
                 </a>
             </li>
             <!-- /RDL RESERVATIONS NAV -->
+            
+            <!-- RDL ROOMS NAV -->
+            <li>
+                <a href="#rooms"
+                   aria-label="{{ name }} Room Bookings">
+                    Room Bookings
+                </a>
+            </li>
+            <!-- /RDL ROOMS NAV -->
             
             <li class="hidden" data-elem-event>
                 <a href="#events"
@@ -453,7 +453,7 @@
              data-label-cancel="Cancel"
              data-label-send="Send Request"
              data-warning="Please note: booking requests are subject to availability and are not confirmed until you have been contacted by the restaurant."
-             data-thanks="THANK YOU.&lt;br&gt;This is not a confirmed reservation. Your request has been sent and we will contact you shortly."
+             data-thanks="THANK YOU.&lt;br&gt;&lt;br&gt;Your request has been sent and we will contact you shortly.&lt;br&gt;This is not a booking confirmation."
              data-sender="{{ brand.prefix }}">
     
         <h2 class="section-title">Table Reservations</h2>
@@ -485,69 +485,6 @@
     
     </section>
     <!-- /RDL RESERVATIONS -->
-
-    <!-- RDL ROOMS -->
-    <section id="rooms"
-             class="content-section room-section"
-             aria-label=""
-             data-id="{{ id }}"
-             data-name="{{ name }}"
-             data-email="{{ email }}"
-             data-provider=""
-             data-provider-id=""
-             data-provider-key=""
-             data-provider-url=""
-             data-max-guests=""
-             data-advance-days=""
-             data-person="person"
-             data-people="people"
-             data-summary-title=""
-             data-instructions="Please complete all fields."
-             data-label-request=""
-             data-label-name="Full Name"
-             data-label-email="Email Address"
-             data-label-phone="Telephone"
-             data-label-cancel="Cancel"
-             data-label-send="Send Room Enquiry"
-             data-warning=""
-             data-thanks="Thank you for your enquiry. We will contact you shortly, to discuss your requirement."
-             data-sender="{{ brand.prefix }}">
-    
-        <h2 class="section-title">Room Reservations</h2>
-    
-        <div class="content-block-grid">
-            <div>
-                <h3>Overview</h3>
-                <p>The Plough is a stone-built village pub with an open plan bar and dining room. Step inside and you will find leather chesterfields, open fires, and wooden dining tables. The pub has five comfortable single, double, and twin bedrooms and is within proximity of Bicester Shopping Village. A convenient stop-over for overnight shopping trips or as a base for exploring the Oxfordshire Cotswolds.</p>
-                <h3>Room Facilities</h3>
-                <!-- feature tags-->
-                <ul class="additional-features rooms" aria-label="features">
-                    <!-- Wi-Fi,Breakfast included,Dog-friendly -->
-                        <li>Wi-Fi</li>
-                        <li>Breakfast included</li>
-                        <li>Dog-friendly</li>
-                </ul>
-                <button id="btnRoomsRequest" class="btn btn-book rooms" aria-label="Check room availability">Room booking enquiry</button>
-                <p><strong>Room prices start from £75 per night.</strong></p>
-            </div>
-    
-            <div id="roomImageContainer" class="img-widget" data-room-images="">
-            
-                <div class="img-grid">
-                    <img loading="lazy"
-                         alt="Background image of {{ name }}"
-                         src="https://res.cloudinary.com/rdl/image/upload//restaurants/{{ number }}/"
-                         sizes="100vw">
-                </div>
-            
-            </div>
-    
-        </div>
-    
-        <div id="roomsWidgetContainer" data-rooms></div>
-    
-    </section>
-    <!-- /RDL ROOMS -->
 
     
     <section id="contacts" class="content-section contact-section">
@@ -644,10 +581,6 @@
     </div>
 
 </footer>
-
-
-
-
 
 
 </body>
