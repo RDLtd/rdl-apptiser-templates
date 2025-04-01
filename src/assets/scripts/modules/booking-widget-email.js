@@ -134,7 +134,11 @@ export default function (config){
   // Generate request summary
   const openBookingRequestSummary = () => {
 
-    // console.log(config);
+      // In case today's date is a blocked date or closed
+      if(!bkgParams.bkgDate) {
+        alert('Please select a booking date');
+        return false;
+      }
 
       if (!document.getElementById('emailRequest')) {
 
@@ -317,10 +321,13 @@ export default function (config){
     modal.close();
   }
 
+  // console.log(new Date().toLocaleDateString('en-GB', { weekday:"short", year:"numeric", month:"short", day:"numeric"}));
+
   async function initDatePicker(advance_days) {
 
     // list of unavailable dates
     let blockedDates = [];
+    let blockDateObj = [];
 
     // wait until we've fetched any blacked dates
     await fetch(`${api}/public/blocked`, {
@@ -342,7 +349,6 @@ export default function (config){
     })
         .then((data) => {
           const { blocked_dates } = data;
-          console.log(blocked_dates);
           blockedDates = blocked_dates.map((item) => new Date(item.date));
     })
         .catch((e) => console.error('RDL', e))
@@ -406,7 +412,7 @@ export default function (config){
       options.appendChild(opt);
     }
     selectCovers.appendChild(options);
-
+    const df = new Date().toLocaleDateString('en-GB', { weekday:"short", year:"numeric", month:"short", day:"numeric"});
     // load disabled dates & init calendar picker
     initDatePicker(bkgAdvDays || 60)
         .then((blockedDatesArray) => {

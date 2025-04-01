@@ -34,13 +34,18 @@
 
             {
                 "name": "facebook",
-                "url": "https://www.facebook.com/restaurantcollective/",
+                "url": "https://facebook.com/restaurantcollective/",
                 "alt": "Visit our Facebook page"
             },
             {
                 "name": "instagram",
-                "url": "https://www.instagram.com/restaurantcollectiveuk/",
+                "url": "https://instagram.com/restaurantcollectiveuk/",
                 "alt": "Follow us on Instagram"
+            },
+            {
+                "name": "x",
+                "url": "https://x.com/restaurantcollectiveuk/",
+                "alt": "Follow us on X"
             }
         ]
     },
