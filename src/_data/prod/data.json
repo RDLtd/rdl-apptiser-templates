@@ -61,8 +61,9 @@
     "people": "{{ reservations.people }}"
   },
   "rooms": {
-    "info": "{{ rooms.overview }}",
-    "image": "{{ rooms.image",
+    "description": "{{ rooms.description }}",
+    "image": "{{ rooms.image }}",
+    "prices": "{{ rooms.prices }}",
     "features": "---------------[[ INSERT ROOMS FEATURES LOOP ]]---------------",
     "provider": {
       "name": "{{ rooms.provider }}",

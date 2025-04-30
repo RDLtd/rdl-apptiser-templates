@@ -6,6 +6,8 @@ const api= process.env.NODE_ENV === 'production'
     ? `https://api.restaurantcollective.io`
     : `http://localhost:4000`;
 
+
+
 console.log('API', api);
 
 /**
