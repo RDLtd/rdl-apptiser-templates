@@ -59,20 +59,20 @@ export default function (data){
             <input type="hidden" name="email_system" value="v2">
             <input type="hidden" name="sender" value="${data.sender}">
             
-                <h1>Room Enquiry</h1>
+                <h1>${data.summaryTitle}</h1>
 
                 <h2>${data.instructions}:</h2>
                 
                 <!-- booking -->
                 <div class="form-grid-3">
                   <div class="text-field">
-                    <input type="number" name="totalGuests" id="totalGuests" value="2"><label for="totalGuests">No. People</label>
+                    <input type="number" name="totalGuests" id="totalGuests" value="2"><label for="totalGuests">${data.labelPeople}</label>
                   </div>
                   <div class="text-field">
-                    <input type="text" name="arrivalDate" id="arrivalDateInput"><label for="arrivalDate">Arrival Date</label>
+                    <input type="text" name="arrivalDate" id="arrivalDateInput"><label for="arrivalDate">${data.labelArrival}</label>
                   </div>
                   <div class="text-field">
-                    <input type="number" name="totalNights" value="2"><label for="totalNights">No. Nights</label>
+                    <input type="number" name="totalNights" value="2"><label for="totalNights">${data.labelNights}</label>
                   </div>
                 </div>
                
@@ -96,8 +96,7 @@ export default function (data){
                 </div>
                 
                 
-                <p>This is not a confirmed reservation. You will be contacted by the venue to 
-                discuss availability and to finalise your reservation.</p>                
+                <p>${data.summaryWarning}</p>                
                 
                 <!-- Actions -->
                 <div class="modal-actions">
@@ -174,46 +173,46 @@ export default function (data){
     dspMessage();
 
     // Send
-    // fetch(`${ app.server }/public/sendroombookingemail`, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     api_key: 'e21421ieb2l1eb2134g21ieg21be2i1n42432',
-    //     user_code: 'CF-418-Beta',
-    //     now_date: new Date().toUTCString(),
-    //     restaurant_id: htmlData.id,
-    //     restaurant_name: form.elements['restaurant_name'].value,
-    //     restaurant_email: form.elements['restaurant_email'].value,
-    //     room_booking_guests: form.elements['totalGuests'].value,
-    //     room_booking_arrival_date: form.elements['arrivalDate'].value,
-    //     room_booking_nights: form.elements['totalNights'].value,
-    //     room_booking_name: form.elements['full_name'].value,
-    //     room_booking_email: form.elements['email'].value,
-    //     company_prefix: form.elements['sender'].value,
-    //     email_system: form.elements['email_system'].value,
-    //     template_version: htmlData.templateVersion,
-    //     user_agent: uaDetection() || 'No detection'
-    //   })
-    // })
-    //   .then(response => {
-    //     // Guard clause
-    //     if (!response.ok) {
-    //       // get error message from body or default to response status
-    //       const error = (response.message) || response.status;
-    //       return Promise.reject(response);
-    //     }
-    //     // Analytics
-    //     gtag('event', 'room_request_sent', {
-    //       'provider': app.provider
-    //     });
-    //
-    //     // Display success message
-    //     dspMessage(form);
-    //
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
+    fetch(`${ app.server }/public/sendroombookingemail`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        api_key: 'e21421ieb2l1eb2134g21ieg21be2i1n42432',
+        user_code: 'CF-418-Beta',
+        now_date: new Date().toUTCString(),
+        restaurant_id: htmlData.id,
+        restaurant_name: form.elements['restaurant_name'].value,
+        restaurant_email: form.elements['restaurant_email'].value,
+        room_booking_guests: form.elements['totalGuests'].value,
+        room_booking_arrival_date: form.elements['arrivalDate'].value,
+        room_booking_nights: form.elements['totalNights'].value,
+        room_booking_name: form.elements['full_name'].value,
+        room_booking_email: form.elements['email'].value,
+        company_prefix: form.elements['sender'].value,
+        email_system: form.elements['email_system'].value,
+        template_version: htmlData.templateVersion,
+        user_agent: uaDetection() || 'No detection'
+      })
+    })
+      .then(response => {
+        // Guard clause
+        if (!response.ok) {
+          // get error message from body or default to response status
+          const error = (response.message) || response.status;
+          return Promise.reject(response);
+        }
+        // Analytics
+        gtag('event', 'room_request_sent', {
+          'provider': app.provider
+        });
+
+        // Display success message
+        dspMessage(form);
+
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   function updateUI() {
