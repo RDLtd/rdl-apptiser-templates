@@ -1,6 +1,7 @@
 import flatpickr from 'flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr';
 import * as modal from './booking-modal';
+import { app } from './app-config';
 
 // Added for debug
 // import uaDetection from './ua-detection';
@@ -169,11 +170,8 @@ export default function (data){
     btnSubmit.classList.add('sending');
     btnSubmit.disabled = true;
 
-    updateUI();
-    dspMessage();
-
     // Send
-    fetch(`${ app.server }/public/sendroombookingemail`, {
+    fetch(`${ app.server }/public/sendroomemail`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -188,13 +186,14 @@ export default function (data){
         room_booking_nights: form.elements['totalNights'].value,
         room_booking_name: form.elements['full_name'].value,
         room_booking_email: form.elements['email'].value,
+        room_booking_tel: form.elements['phone'].value,
         company_prefix: form.elements['sender'].value,
         email_system: form.elements['email_system'].value,
-        template_version: htmlData.templateVersion,
-        user_agent: uaDetection() || 'No detection'
+        template_version: htmlData.templateVersion
       })
     })
       .then(response => {
+        // console.log(response);
         // Guard clause
         if (!response.ok) {
           // get error message from body or default to response status
@@ -207,6 +206,7 @@ export default function (data){
         });
 
         // Display success message
+        updateUI();
         dspMessage(form);
 
       })
