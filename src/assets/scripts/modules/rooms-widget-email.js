@@ -3,6 +3,10 @@ import { French } from 'flatpickr/dist/l10n/fr';
 import * as modal from './booking-modal';
 import { app } from './app-config';
 
+const api= process.env.NODE_ENV === 'production'
+    ? `https://api.restaurantcollective.io`
+    : `http://localhost:4000`;
+
 // Added for debug
 // import uaDetection from './ua-detection';
 
@@ -44,7 +48,31 @@ export default function (data){
   roomsBkgForm.setAttribute('aria-label', 'Room booking request form');
 
 
-  // Generate request summary
+  /**
+   * Opens a modal for submitting a room request. This function dynamically creates and configures
+   * a form if it doesn't already exist in the DOM. The form includes fields for room booking
+   * details, personal information, and is initialized with input validation and a date picker
+   * for the arrival date. The modal also provides options to submit or cancel the request.
+   *
+   * Key Features:
+   * - Dynamically creates the modal form when it does not already exist.
+   * - The modal includes fields for guest count, arrival date, nights, name, phone number, and email.
+   * - Configures a date picker input for selecting the arrival date, excluding unavailable dates.
+   * - Fetches blocked dates from the server and dynamically adjusts default dates.
+   * - Supports localization for date fields.
+   * - Allows canceling or submitting the room request via respective buttons.
+   * - Updates the modal content if it already exists, without recreating it.
+   *
+   * Dependencies:
+   * - Expects `data` to be an object containing required labels, names, and other properties
+   *   for form rendering (e.g., `data.name`, `data.email`, `data.labelPeople`).
+   * - Depends on a `modal` object for managing modal operations like opening, closing, and clearing content.
+   * - Requires an external date picker library (e.g., Flatpickr) for initializing the arrival date input.
+   *
+   * Note:
+   * - The availability of dates is fetched from a server endpoint and processed asynchronously.
+   * - Sets focus on the "totalGuests" field once the modal is displayed.
+   */
   const openRoomRequest = () => {
 
       if (!document.getElementById('roomRequest')) {
@@ -112,23 +140,85 @@ export default function (data){
 
         const arrivalDateInput = document.getElementById('arrivalDateInput');
 
-        const rfp = flatpickr (arrivalDateInput, {
-          dateFormat: 'D, M d Y',
-          defaultDate: 'today',
-          minDate: 'today',
-          // Max date doesn't play nicely on iPhone/iPad
-          // maxDate: iOS ? null : new Date().fp_incr(bkgAdvDays),
-          monthSelectorType: 'static',
-          disableMobile: "false",
-          locale: htmlLang === 'fr' ? French : 'en',
-          // onChange: (selectedDate, dateStr) => {
-          //   arrivalDateInput.value = dateStr;
-          // }
+
+
+        /**
+         * Adjusts and returns the default date, skipping over any blocked dates.
+         *
+         * @param {Array<Date>} blocked - An array of date objects representing blocked dates.
+         * @return {Date} The adjusted default date that does not conflict with any blocked dates.
+         */
+        let dateObjNow = new Date();
+        function getDefaultDate(blocked) {
+          blocked.forEach(item => {
+            if(item.toLocaleDateString() === dateObjNow.toLocaleDateString()) {
+              dateObjNow = new Date(dateObjNow.setDate(dateObjNow.getDate() + 1));
+              // console.log(dateObjNow);
+            }
+          })
+          return dateObjNow;
+        }
+
+        /**
+         * Initializes the date picker by retrieving blocked dates from the server,
+         * processing them, and returning a sorted list of unavailable dates.
+         *
+         * @param {number} advance_days - The number of days to look forward when initializing the date picker.
+         * @return {Promise<Date[]>} A promise that resolves to an array of Date objects representing the unavailable
+         * dates, sorted in ascending order.
+         */
+        async function initDatePicker(advance_days) {
+
+          // list of unavailable dates
+          let blockedDates = [];
+
+          // wait until we've fetched any blacked dates
+          await fetch(`${api}/public/blockedroomdates`, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              api_key: 'e21421ieb2l1eb2134g21ieg21be2i1n42432',
+              user_code: 'CF-418-apptiser',
+              restaurant_id: htmlData.id,
+              include_closed: 'true'
+            })
+          })
+              .then((response) => {
+                if (!response.ok) {
+                  throw Error(response.statusText);
+                }
+                return response.json();
+              })
+              .then((data) => {
+                const { blocked_dates } = data;
+                console.log(blocked_dates);
+                blockedDates = blocked_dates.map((item) => new Date(item.date));
+
+
+              })
+              .catch((e) => console.error('RDL', e))
+
+          return blockedDates.sort((a, b) => a - b);
+        }
+
+        initDatePicker(90).then((blockedDates) => {
+
+          const rfp = flatpickr (arrivalDateInput, {
+            dateFormat: 'D, d M Y',
+            defaultDate: getDefaultDate(blockedDates),
+            minDate: 'today',
+            disable: blockedDates,
+            monthSelectorType: 'static',
+            disableMobile: "false",
+            locale: htmlLang === 'fr' ? French : 'en',
+          });
         });
 
+        // Cancel button listener
         document.getElementById('btnCancel').addEventListener('click', () => {
           modal.close();
         });
+        // Submit button listener
         document.getElementById('roomRequestForm').addEventListener('submit', (e) => {
           e.preventDefault();
           console.log('Send Room Request');
