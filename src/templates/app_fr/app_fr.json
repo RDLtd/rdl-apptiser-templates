@@ -17,13 +17,13 @@
 			},
 			"summary": {
 				"instructions": "Veuillez fournir vos coordonnées ci-dessous",
-				"label-cancel": "Annuler",
-				"label-email": "Votre adresse email",
-				"label-name": "Votre nom complet",
-				"label-send": "Demande de réservation",
+				"cancel": "Annuler",
+				"email": "Votre adresse email",
+				"name": "Votre nom complet",
+				"send": "Demande de réservation",
 				"thanks": "Merci! Nous vous contacterons sous peu.",
 				"title": "Demande de réservation",
-				"warning": "**Attention**: les demandes de réservation sont soumises à disponibilité et ne sont confirmées qu'après avoir été contacté par l'établissement."
+				"warning": "Attention: les demandes de réservation sont soumises à disponibilité et ne sont confirmées qu'après avoir été contacté par l'établissement."
 			},
 			"time": {
 				"aria": "Temps de la demande"
@@ -51,7 +51,8 @@
 			"location": "Localisation",
 			"menuMobile": "Menu de navigation mobile",
 			"menus": "Menus",
-			"reservations": "Réservations"
+			"reservations": "Réservations",
+			"rooms": "Réservations de chambres"
 		}
 	},
 	"section": {
@@ -122,6 +123,30 @@
 					"aria": "Heure"
 				}
 			}
+		},
+		"rooms": {
+			"acknowledgement": "Merci pour votre demande. Nous vous contacterons prochainement pour discuter de vos besoins.",
+			"features": [
+				"",
+				"",
+				""
+			],
+			"info": "",
+			"instructions": "Veuillez remplir tous les champs.",
+			"labelArrival": "Date d'arrivée",
+			"labelCancel": "Annuler",
+			"labelEmail": "Adresse e-mail",
+			"labelFeatures": "Room Facilities",
+			"labelName": "Votre nom complet",
+			"labelNights": "Nuits",
+			"labelPeople": "Personnes",
+			"labelPhone": "Téléphone",
+			"labelPrices": "Tarifs des chambres",
+			"labelRoomEnquiry": "Demande de réservation",
+			"labelSend": "Envoyer",
+			"summaryTitle": "Demande de réservation",
+			"summaryWarning": "Ceci n'est pas une réservation confirmée. Vous serez contacté par le lieu pour discuter des disponibilités et finaliser votre réservation.",
+			"title": "Réservations de chambres"
 		},
 		"takeaway": {
 			"title": "A Emporter",

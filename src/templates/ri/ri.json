@@ -125,13 +125,27 @@
 			}
 		},
 		"rooms": {
+			"acknowledgement": "Merci pour votre demande. Nous vous contacterons prochainement pour discuter de vos besoins.",
 			"features": [
 				"",
 				"",
 				""
 			],
 			"info": "",
-			"labelFeatures": "",
+			"instructions": "Veuillez remplir tous les champs.",
+			"labelArrival": "Date d'arrivée",
+			"labelCancel": "",
+			"labelEmail": "Adresse e-mail",
+			"labelFeatures": "Équipements de la chambre",
+			"labelName": "",
+			"labelNights": "Nombre de nuits",
+			"labelPeople": "Non, les gens",
+			"labelPhone": "Téléphone",
+			"labelPrices": "Tarifs des chambres",
+			"labelRoomEnquiry": "Demande de réservation de chambre",
+			"labelSend": "Envoyer une demande de chambre",
+			"summaryTitle": "Demande de réservation de chambre",
+			"summaryWarning": "Ceci n'est pas une réservation confirmée. Vous serez contacté par le lieu pour discuter des disponibilités et finaliser votre réservation.",
 			"title": "Réservations de chambres"
 		},
 		"takeaway": {
