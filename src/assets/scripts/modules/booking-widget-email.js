@@ -28,6 +28,7 @@ console.log('API', api);
  * @param config.labelRequest
  * @param config.labelName
  * @param config.labelEmail
+ * @param config.labelTel
  * @param config.labelCancel
  * @param config.labelSend
  * @param config.warning
@@ -183,6 +184,11 @@ export default function (config){
                   <input id="email" type="email" name="email" placeholder=" " required>
                     <label for="email">${config.labelEmail}</label>
                 </div>
+                <!-- Telephone -->
+                <div class="text-field">
+                  <input id="tel" type="text" name="tel" placeholder=" " required minlength="10" ">
+                    <label for="tel">${config.labelTel}</label>
+                </div>
                 <p>${config.warning} <strong>${config.sender}</strong>.</p>
                 <!-- Actions -->
                 <div class="modal-actions">
@@ -248,6 +254,7 @@ export default function (config){
         booking_date: bkgParams.bkgDate,
         booking_name: form.elements['full_name'].value,
         booking_email: form.elements['email'].value,
+        booking_tel: form.elements['tel'].value,
         company_prefix: form.elements['sender'].value,
         email_system: form.elements['email_system'].value,
         template_version: htmlData.templateVersion

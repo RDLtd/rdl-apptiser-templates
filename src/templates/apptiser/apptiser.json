@@ -16,6 +16,7 @@
 			"summary": {
 				"cancel": "Cancel",
 				"email": "Your email address",
+				"tel": "Your contact tel. number",
 				"instructions": "Please enter your contact details below",
 				"name": "You full name",
 				"send": "Send Request",
