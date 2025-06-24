@@ -238,12 +238,10 @@
         ]
     },
     "brand": {
-        "prefix": "rdl",
+        "prefix": "app",
         "name": "RDL",
         "logo": "https://spw.restaurantcollective.org.uk/common/images/logo-rc-white.svg",
         "web": "https://apptiser.io",
         "language": "en"
     }
 }
-
-

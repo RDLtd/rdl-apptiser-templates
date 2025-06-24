@@ -16,13 +16,13 @@
 			"summary": {
 				"cancel": "Cancel",
 				"email": "Your email address",
-				"tel": "Your contact tel. number",
+				"tel": "Your mobile no.",
 				"instructions": "Please enter your contact details below",
 				"name": "You full name",
 				"send": "Send Request",
 				"thanks": "THANK YOU.<br><br>Your request has been sent and we will contact you shortly.<br>This is not a booking confirmation.",
 				"title": "Booking Request",
-				"warning": "Please note: booking requests are subject to availability and are not confirmed until you have been contacted by the restaurant."
+				"warning": "Please note: booking requests are subject to availability and are not confirmed until you have been contacted by "
 			},
 			"time": {
 				"aria": "Request time"

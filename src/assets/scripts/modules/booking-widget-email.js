@@ -186,10 +186,10 @@ export default function (config){
                 </div>
                 <!-- Telephone -->
                 <div class="text-field">
-                  <input id="tel" type="text" name="tel" placeholder=" " required minlength="10" ">
+                  <input id="tel" type="text" name="tel" placeholder=" " required pattern="^[0][0-9 ]{10,12}$" title="Numbers only please, starting with a zero">
                     <label for="tel">${config.labelTel}</label>
                 </div>
-                <p>${config.warning} <strong>${config.sender}</strong>.</p>
+                <p>${config.warning} <strong>${config.name}</strong>.</p>
                 <!-- Actions -->
                 <div class="modal-actions">
                   <button id="btnCancel" type="button" class="btn-cancel">${config.labelCancel}</button>
