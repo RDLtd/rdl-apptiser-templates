@@ -481,11 +481,11 @@ export default function (config){
           const fp = flatpickr (selectDate, {
             dateFormat: 'D, d M Y',
             defaultDate: getDefaultDate(blockedDatesArray),
-            disable: iOS ? null : blockedDatesArray,
+            //disable: iOS ? null : blockedDatesArray,
             minDate: 'today',
             maxDate: new Date().fp_incr(bkgAdvDays),
             monthSelectorType: 'static',
-            disableMobile: "false",
+            //disableMobile: "false",
             locale: htmlLang === 'fr' ? French : 'en',
             wrap: true,
             clickOpens: false,
