@@ -50,6 +50,8 @@ export default function (config){
   // Is this an iOS device?
   const iOS = /iPad|iPhone/.test(navigator.userAgent);
 
+  console.log('iOS', iOS);
+
   // Set element references
   const htmlData = document.querySelector('html').dataset;
   const htmlLang = htmlData.lang || 'en';
@@ -451,6 +453,7 @@ export default function (config){
               dateInput.value = dateStr;
             }
           });
+          fp.disableMobile = iOS;
           // open flatpickr manually so that we can trigger it from
           // anywhere in the containing element - i.e. including the icons
           selectDate.addEventListener('click', () => {
