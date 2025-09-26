@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-id="{{ id }}" data-template-version="3.0.13" data-template-brand="apptiser" xmlns="http://www.w3.org/1999/html">
+<html lang="en" data-id="{{ id }}" data-template-version="3.1.5" data-template-brand="apptiser" xmlns="http://www.w3.org/1999/html">
 <head>
 	<meta charset="utf-8">
     <title>{{ name }} |  {{ postalCode }}</title>
@@ -50,7 +50,7 @@
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="https://assets.apptiser.io/images/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="https://assets.apptiser.io/images/apple-touch-icon.png">
-    <link rel="manifest" href="https://assets.apptiser.io/manifest.json?v=3.0.13">
+    <link rel="manifest" href="https://assets.apptiser.io/manifest.json?v=3.1.5">
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,13 +66,13 @@
               href="https://fonts.googleapis.com/css2?family=Antonio:wght@200&display=swap">
     </noscript>
 
-    <link rel="stylesheet" href="https://assets.apptiser.io/styles/themes/apptiser.css?v=3.0.13" />
+    <link rel="stylesheet" href="https://assets.apptiser.io/styles/themes/apptiser.css?v=3.1.5" />
 
-	<link rel="stylesheet" href="https://assets.apptiser.io/styles/bundle-main.css?v=3.0.13" />
+	<link rel="stylesheet" href="https://assets.apptiser.io/styles/bundle-main.css?v=3.1.5" />
 
-	<script type="module" src="https://assets.apptiser.io/scripts/bundle-main.js?v=3.0.13" defer></script>
+	<script type="module" src="https://assets.apptiser.io/scripts/bundle-main.js?v=3.1.5" defer></script>
 
-    <script type="module" src="https://assets.apptiser.io/scripts/bundle-booking-widgets.js?v=3.0.13" defer></script>
+    <script type="module" src="https://assets.apptiser.io/scripts/bundle-booking-widgets.js?v=3.1.5" defer></script>
 
     <script defer src="https://www.googletagmanager.com/gtag/js?id=G-4FPKM2SVKM"></script>
     <script>
@@ -141,11 +141,20 @@
         <!-- RDL RESERVATIONS NAV -->
         <li>
             <a href="#reservations"
-               aria-label="{{ name }} Reservations">
-                Reservations
+               aria-label="{{ name }} Table Bookings">
+                Table Bookings
             </a>
         </li>
         <!-- /RDL RESERVATIONS NAV -->
+        
+        <!-- RDL ROOMS NAV -->
+        <li>
+            <a href="#rooms"
+               aria-label="{{ name }} Room Bookings">
+                Room Bookings
+            </a>
+        </li>
+        <!-- /RDL ROOMS NAV -->
         
         <li class="hidden" data-elem-event>
             <a href="#events"
@@ -216,11 +225,20 @@
             <!-- RDL RESERVATIONS NAV -->
             <li>
                 <a href="#reservations"
-                   aria-label="{{ name }} Reservations">
-                    Reservations
+                   aria-label="{{ name }} Table Bookings">
+                    Table Bookings
                 </a>
             </li>
             <!-- /RDL RESERVATIONS NAV -->
+            
+            <!-- RDL ROOMS NAV -->
+            <li>
+                <a href="#rooms"
+                   aria-label="{{ name }} Room Bookings">
+                    Room Bookings
+                </a>
+            </li>
+            <!-- /RDL ROOMS NAV -->
             
             <li class="hidden" data-elem-event>
                 <a href="#events"
@@ -276,6 +294,10 @@
             </div>
 
             <!-- opening times -->
+            <div>
+
+
+            </div>
             <aside id="hours" class="opening-times" data-book-online>
                 <dl>
                     <dt>Telephone</dt>
@@ -428,20 +450,21 @@
              data-label-request="Booking Request"
              data-label-name="You full name"
              data-label-email="Your email address"
+             data-label-tel="Your mobile no."
              data-label-cancel="Cancel"
              data-label-send="Send Request"
-             data-warning="Please note: booking requests are subject to availability and are not confirmed until you have been contacted by the restaurant."
-             data-thanks="Thanks! We&#x27;ll be in touch shortly."
+             data-warning="Please note: booking requests are subject to availability and are not confirmed until you have been contacted by "
+             data-thanks="THANK YOU.&lt;br&gt;&lt;br&gt;Your request has been sent and we will contact you shortly.&lt;br&gt;This is not a booking confirmation."
              data-sender="{{ brand.prefix }}">
     
-        <h2 class="section-title">Reservations</h2>
+        <h2 class="section-title">Table Reservations</h2>
     
         <p>{{ reservations.info }}</p>
+    
     
         <!-- RDL BOOKING WIDGET -->
         <div id="bookingWidgetContainer" data-book-online></div>
         <!-- /RDL BOOKING WIDGET -->
-    
         <!-- group & private bookings -->
         <div class="content-block">
         
@@ -463,6 +486,69 @@
     
     </section>
     <!-- /RDL RESERVATIONS -->
+
+    <!-- RDL ROOMS -->
+    <section id="rooms"
+             class="content-section room-section"
+             aria-label=""
+             data-id="{{ id }}"
+             data-name="{{ name }}"
+             data-email="{{ email }}"
+             data-provider="email"
+             data-provider-id="rdl"
+             data-provider-key="rdl"
+             data-provider-url="https://api.apptiser.io/v1/bookings/rooms"
+             data-advance-days="90"
+             data-summary-title="Room Reservation Request"
+             data-instructions="Please complete all fields."
+             data-label-name="Full Name"
+             data-label-email="Email Address"
+             data-label-phone="Telephone"
+             data-label-people="Number of people"
+             data-label-nights="No. of nights"
+             data-label-arrival="Arrival date"
+             data-label-cancel="Cancel"
+             data-label-send="Send Room Enquiry"
+             data-summary-warning="This is not a confirmed reservation. You will be contacted by the venue to discuss availability and to finalise your reservation."
+             data-thanks="Thank you for your enquiry. We will contact you shortly, to discuss your requirement."
+             data-sender="{{ brand.prefix }}">
+    
+        <h2 class="section-title">Room Reservations</h2>
+    
+        <div class="content-block-grid">
+            <div>
+                <h3>Overview</h3>
+                <p>{{ rooms.description }}</p>
+                <h3>Room Facilities</h3>
+                <ul class="additional-features rooms" aria-label="features">
+                    <!-- RDL LOOP ROOM FEATURES
+                    {{#each rooms.features}}
+                        <li>{{ this }}</li>
+                    {{/each}}
+                    /RDL LOOP ROOM FEATURES -->
+                </ul>
+    
+                <h3>Room Prices</h3>
+                <p><strong>{{ rooms.prices }}</strong></p>
+            </div>
+    
+            <div id="roomImageContainer" class="img-widget">
+                <div class="img-grid">
+                    <img loading="lazy"
+                         alt="Room at {{ name }}"
+                         src="{{ rooms.image }}"
+                         sizes="100vw">
+                </div>
+                <button id="btnRoomsRequest" class="btn btn-book rooms" aria-label="Check room availability">Room Booking Enquiry</button>
+    
+            </div>
+    
+        </div>
+    
+        <div id="roomsWidgetContainer" data-rooms></div>
+    
+    </section>
+    <!-- /RDL ROOMS -->
 
     
     <section id="contacts" class="content-section contact-section">
@@ -555,14 +641,10 @@
                 </g>
             </svg>
         </a>
-        <span>&copy; 2024</span>
+        <span>&copy; 2025</span>
     </div>
 
 </footer>
-
-
-
-
 
 
 </body>

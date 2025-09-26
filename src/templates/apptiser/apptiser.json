@@ -16,12 +16,13 @@
 			"summary": {
 				"cancel": "Cancel",
 				"email": "Your email address",
+				"tel": "Your mobile no.",
 				"instructions": "Please enter your contact details below",
 				"name": "You full name",
 				"send": "Send Request",
-				"thanks": "Thanks! We'll be in touch shortly.",
+				"thanks": "THANK YOU.<br><br>Your request has been sent and we will contact you shortly.<br>This is not a booking confirmation.",
 				"title": "Booking Request",
-				"warning": "Please note: booking requests are subject to availability and are not confirmed until you have been contacted by the restaurant."
+				"warning": "Please note: booking requests are subject to availability and are not confirmed until you have been contacted by "
 			},
 			"time": {
 				"aria": "Request time"
@@ -50,7 +51,8 @@
 			"location": "Location",
 			"menuMobile": "Mobile navigation menu",
 			"menus": "Menus",
-			"reservations": "Reservations",
+			"reservations": "Table Bookings",
+			"rooms": "Room Bookings",
 			"takeaway": "Takeaway"
 		}
 	},
@@ -113,7 +115,7 @@
 			"aria": "Booking widget",
 			"groups": "Group bookings",
 			"private": "Private dining",
-			"title": "Reservations",
+			"title": "Table Reservations",
 			"widget": {
 				"covers": {
 					"aria": "Booking party size"
@@ -122,6 +124,30 @@
 					"aria": "Booking time"
 				}
 			}
+		},
+		"rooms": {
+			"acknowledgement": "Thank you for your enquiry. We will contact you shortly, to discuss your requirement.",
+			"features": [
+				"",
+				"",
+				""
+			],
+			"info": "",
+			"instructions": "Please complete all fields.",
+			"labelArrival": "Arrival date",
+			"labelCancel": "Cancel",
+			"labelEmail": "Email Address",
+			"labelFeatures": "Room Facilities",
+			"labelName": "Full Name",
+			"labelNights": "No. of nights",
+			"labelPeople": "Number of people",
+			"labelPhone": "Telephone",
+			"labelPrices": "Room Prices",
+			"labelRoomEnquiry": "Room Booking Enquiry",
+			"labelSend": "Send Room Enquiry",
+			"summaryTitle": "Room Reservation Request",
+			"summaryWarning": "This is not a confirmed reservation. You will be contacted by the venue to discuss availability and to finalise your reservation.",
+			"title": "Room Reservations"
 		},
 		"takeaway": {
 			"instructions": "For those days when you just don’t want to leave the house, you can order your menu favourites using our chosen trusted delivery partner. Click to place your order:",

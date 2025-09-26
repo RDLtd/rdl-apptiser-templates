@@ -1,0 +1,61 @@
+<!-- RDL ROOMS -->
+<section id="rooms"
+         class="content-section room-section"
+         aria-label="{{ section.rooms.aria }}"
+         data-id="{{ data.id }}"
+         data-name="{{ data.name }}"
+         data-email="{{ data.email }}"
+         data-provider="email"
+         data-provider-id="rdl"
+         data-provider-key="rdl"
+         data-provider-url="https://api.apptiser.io/v1/bookings/rooms"
+         data-advance-days="90"
+         data-summary-title="{{ section.rooms.summaryTitle }}"
+         data-instructions="{{ section.rooms.instructions }}"
+         data-label-name="{{ section.rooms.labelName }}"
+         data-label-email="{{ section.rooms.labelEmail }}"
+         data-label-phone="{{ section.rooms.labelPhone }}"
+         data-label-people="{{ section.rooms.labelPeople }}"
+         data-label-nights="{{ section.rooms.labelNights }}"
+         data-label-arrival="{{ section.rooms.labelArrival }}"
+         data-label-cancel="{{ section.rooms.labelCancel }}"
+         data-label-send="{{ section.rooms.labelSend }}"
+         data-summary-warning="{{ section.rooms.summaryWarning }}"
+         data-thanks="{{ section.rooms.acknowledgement }}"
+         data-sender="{{ data.brand.prefix }}">
+
+    <h2 class="section-title">{{ section.rooms.title }}</h2>
+
+    <div class="content-block-grid">
+        <div>
+            <h3>Overview</h3>
+            <p>{{ data.rooms.description }}</p>
+            <h3>{{ section.rooms.labelFeatures }}</h3>
+            <ul class="additional-features rooms" aria-label="features">
+                <!-- {{ data.rooms.features }} -->
+                {{#each data.rooms.features }}
+                    <li>{{ this }}</li>
+                {{/each}}
+            </ul>
+
+            <h3>{{ section.rooms.labelPrices }}</h3>
+            <p><strong>{{ data.rooms.prices }}</strong></p>
+        </div>
+
+        <div id="roomImageContainer" class="img-widget">
+            <div class="img-grid">
+                <img loading="lazy"
+                     alt="Room at {{ data.name }}"
+                     src="{{ data.rooms.image }}"
+                     sizes="100vw">
+            </div>
+            <button id="btnRoomsRequest" class="btn btn-book rooms" aria-label="Check room availability">{{ section.rooms.labelRoomEnquiry }}</button>
+
+        </div>
+
+    </div>
+
+    <div id="roomsWidgetContainer" data-rooms></div>
+
+</section>
+<!-- /RDL ROOMS -->

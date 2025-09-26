@@ -18,6 +18,7 @@
          data-label-request="{{ button.bkgRequest }}"
          data-label-name="{{ bookings.email.summary.name }}"
          data-label-email="{{ bookings.email.summary.email }}"
+         data-label-tel="{{ bookings.email.summary.tel }}"
          data-label-cancel="{{ bookings.email.summary.cancel }}"
          data-label-send="{{ bookings.email.summary.send }}"
          data-warning="{{ bookings.email.summary.warning }}"
@@ -28,10 +29,10 @@
 
     <p>{{ data.reservations.info }}</p>
 
+
     <!-- RDL BOOKING WIDGET -->
     <div id="bookingWidgetContainer" data-book-online></div>
     <!-- /RDL BOOKING WIDGET -->
-
     {{> partials/booking-extra }}
 
 </section>

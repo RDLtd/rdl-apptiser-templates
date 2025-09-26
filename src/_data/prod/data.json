@@ -60,6 +60,19 @@
     "person": "{{ reservations.person }}",
     "people": "{{ reservations.people }}"
   },
+  "rooms": {
+    "description": "{{ rooms.description }}",
+    "image": "{{ rooms.image }}",
+    "prices": "{{ rooms.prices }}",
+    "features": "---------------[[ INSERT ROOMS FEATURES LOOP ]]---------------",
+    "provider": {
+      "name": "{{ rooms.provider }}",
+      "id": "{{ rooms.id }}",
+      "key": "{{ rooms.key }}",
+      "url": "{{ rooms.url }}"
+    }
+  },
+
   "brand": {
     "prefix": "{{ brand.prefix }}",
     "name": "{{ brand.name }}",
