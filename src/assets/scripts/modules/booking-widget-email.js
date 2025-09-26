@@ -441,8 +441,7 @@ export default function (config){
             defaultDate: getDefaultDate(blockedDatesArray),
             disable: blockedDatesArray,
             minDate: 'today',
-            // Max date doesn't play nicely on iPhone/iPad
-            maxDate: iOS ? null : new Date().fp_incr(bkgAdvDays),
+            maxDate: new Date().fp_incr(bkgAdvDays),
             monthSelectorType: 'static',
             disableMobile: "false",
             locale: htmlLang === 'fr' ? French : 'en',
