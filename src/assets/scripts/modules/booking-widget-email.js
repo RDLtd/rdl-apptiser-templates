@@ -485,7 +485,7 @@ export default function (config){
             minDate: 'today',
             maxDate: new Date().fp_incr(bkgAdvDays),
             monthSelectorType: 'static',
-            //disableMobile: "false",
+            disableMobile: iOS ? true : "false",
             locale: htmlLang === 'fr' ? French : 'en',
             wrap: true,
             clickOpens: false,
