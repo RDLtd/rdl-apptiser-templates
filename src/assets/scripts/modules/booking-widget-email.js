@@ -481,7 +481,7 @@ export default function (config){
           const fp = flatpickr (selectDate, {
             dateFormat: 'D, d M Y',
             defaultDate: getDefaultDate(blockedDatesArray),
-            //disable: iOS ? null : blockedDatesArray,
+            disable: blockedDatesArray,
             minDate: 'today',
             maxDate: new Date().fp_incr(bkgAdvDays),
             monthSelectorType: 'static',
