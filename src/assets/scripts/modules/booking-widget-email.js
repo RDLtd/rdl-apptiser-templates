@@ -6,8 +6,6 @@ const api= process.env.NODE_ENV === 'production'
     ? `https://api.restaurantcollective.io`
     : `http://localhost:4000`;
 
-
-
 console.log('API', api);
 
 /**
@@ -47,9 +45,6 @@ export default function (config){
   const bookingWidgetContainer = document.getElementById('bookingWidgetContainer');
   bookingWidgetContainer.classList.add('booking-request-container');
 
-  // Is this an iOS device?
-  const iOS = /iPad|iPhone/.test(navigator.userAgent);
-
   let sortedBlockedDates = [];
 
   // Set element references
@@ -60,6 +55,7 @@ export default function (config){
   bkgForm.classList.add('form-booking-request');
   bkgForm.setAttribute('id', 'bkgRequestForm');
   bkgForm.setAttribute('aria-label', 'Booking request form');
+  const iOS = !!navigator.userAgent.match(/(iPad|iPhone)/g);
 
   bkgForm.innerHTML =
       `<div class="selector">
@@ -211,7 +207,7 @@ export default function (config){
 
       } else {
 
-        // If the modal had already been created then just
+        // If the modal had already been created, then
         // update the summary values accordingly
         document.getElementById('partySize').innerHTML = bkgParams.bkgSize;
         document.getElementById('timeSlot').innerHTML = bkgParams.bkgTime;
@@ -391,7 +387,6 @@ export default function (config){
     modal.clearContent();
     modal.modalContent.appendChild(alertMessage);
     modal.open(config.provider);
-
   }
 
   // Update DOM after window.load
@@ -424,6 +419,9 @@ export default function (config){
       bkgParams.bkgTime = document.getElementById('selectTime').value;
 
       // Double-check that a blocked date has not been selected
+      // iOS doesn't support the disabling of dates from their native date picker,
+      // so we need to catch any blocked dates at this point
+      // and stop the request being made.
       let requestedDateBlocked = false;
       let requestedDate = null;
 
@@ -436,10 +434,20 @@ export default function (config){
         console.log(d.toLocaleDateString());
       });
 
-      if(requestedDateBlocked) {
-        openAlert(`Sorry, but we don't have any availability on <strong>${requestedDate}</strong>. If possible, please select an alternative date.`);
-      } else {
+      if(!requestedDateBlocked) {
         openBookingRequestSummary();
+      } else {
+        let msg;
+        switch(htmlLang) {
+          case 'fr':
+            msg = `Désolé, mais nous n'avons aucune disponibilité pour le <strong>${requestedDate}</strong>. Si possible, veuillez sélectionner une autre date.`
+            break;
+          default: {
+            msg = `Sorry, but we don't have any availability on <strong>${requestedDate}</strong>. If possible, please select an alternative date.`
+            break;
+           }
+        }
+        openAlert(msg);
       }
     });
 
@@ -455,6 +463,7 @@ export default function (config){
 
     // build DOM elements
     const options = document.createDocumentFragment();
+
     // Cover select
     for (let i = 1; i <= bkgMaxCovers; i++) {
       let opt = document.createElement('option');
@@ -466,13 +475,13 @@ export default function (config){
     }
     selectCovers.appendChild(options);
 
-    // load disabled dates & init calendar picker
+    // load disabled dates and init calendar picker
     initDatePicker(bkgAdvDays || 60)
         .then((blockedDatesArray) => {
           const fp = flatpickr (selectDate, {
             dateFormat: 'D, d M Y',
             defaultDate: getDefaultDate(blockedDatesArray),
-            disable: blockedDatesArray,
+            disable: iOS ? null : blockedDatesArray,
             minDate: 'today',
             maxDate: new Date().fp_incr(bkgAdvDays),
             monthSelectorType: 'static',
@@ -484,7 +493,6 @@ export default function (config){
               dateInput.value = dateStr;
             }
           });
-          fp.disableMobile = iOS;
           // open flatpickr manually so that we can trigger it from
           // anywhere in the containing element - i.e. including the icons
           selectDate.addEventListener('click', () => {
