@@ -67,11 +67,13 @@
       transition-duration: 300ms;
       transition-property: background-color, color;
       transition-timing-function: ease-out;
+      padding-block: 2.4rem;
       &:hover, &:focus-visible {
         color: white;
         background-color: $color-cta-bgd-dark;
       }
       @include mq($mq-medium ) {
+        padding-block: 2rem;
         border-radius: 0 8px 8px 0;
       };
     }
@@ -87,6 +89,8 @@
 }
 .modal-content {
   width: 100%;
+  display: flex;
+  align-items: center;
 }
 .modal-actions {
   display: flex;

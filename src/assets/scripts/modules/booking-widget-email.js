@@ -6,8 +6,6 @@ const api= process.env.NODE_ENV === 'production'
     ? `https://api.restaurantcollective.io`
     : `http://localhost:4000`;
 
-
-
 console.log('API', api);
 
 /**
@@ -47,8 +45,7 @@ export default function (config){
   const bookingWidgetContainer = document.getElementById('bookingWidgetContainer');
   bookingWidgetContainer.classList.add('booking-request-container');
 
-  // Is this an iOS device?
-  const iOS = /iPad|iPhone/.test(navigator.userAgent);
+  let sortedBlockedDates = [];
 
   // Set element references
   const htmlData = document.querySelector('html').dataset;
@@ -58,6 +55,8 @@ export default function (config){
   bkgForm.classList.add('form-booking-request');
   bkgForm.setAttribute('id', 'bkgRequestForm');
   bkgForm.setAttribute('aria-label', 'Booking request form');
+  const iOS = !!navigator.userAgent.match(/(iPad|iPhone)/g);
+  console.log(`iOS: ${iOS}`);
 
   bkgForm.innerHTML =
       `<div class="selector">
@@ -209,7 +208,7 @@ export default function (config){
 
       } else {
 
-        // If the modal had already been created then just
+        // If the modal had already been created, then
         // update the summary values accordingly
         document.getElementById('partySize').innerHTML = bkgParams.bkgSize;
         document.getElementById('timeSlot').innerHTML = bkgParams.bkgTime;
@@ -227,7 +226,7 @@ export default function (config){
 
   function submitBookingRequest(form) {
 
-    console.log(form);
+    // console.log(form);
 
     const btnCancel = document.getElementById('btnCancel');
     const btnSubmit = document.getElementById('btnSubmit');
@@ -270,7 +269,7 @@ export default function (config){
           'provider': config.provider,
           'covers': Number(document.getElementById('selectCovers').value)
         });
-        // Display success message
+        // Display a success message
         displayThankYouMessage();
 
       })
@@ -299,7 +298,7 @@ export default function (config){
     messageContainer.style.textAlign = 'center';
     messageContainer.classList.add('fade-in-fast');
 
-    // Create dismiss option
+    // Create a dismiss option
     document.getElementById('btnAcknowledged').addEventListener('click', () => {
       messageContainer.classList.remove('fade-in-fast');
       messageContainer.style.display = 'none';
@@ -308,7 +307,7 @@ export default function (config){
       resetBookingRequestForm();
     });
 
-    // dismiss if user hasn't
+    // dismiss if the user hasn't
     setTimeout(() => {
       messageContainer.classList.remove('fade-in-fast');
       messageContainer.style.display = 'none';
@@ -322,7 +321,7 @@ export default function (config){
   function resetBookingRequestForm() {
     // show cancel option
     document.getElementById('btnCancel').style.display = 'block';
-    // reset submit button
+    // reset a submit button
     const btnSubmit = document.getElementById('btnSubmit')
     btnSubmit.innerHTML = "Booking Request"
     btnSubmit.disabled = false;
@@ -356,27 +355,41 @@ export default function (config){
         .then((data) => {
           const { blocked_dates } = data;
           blockedDates = blocked_dates.map((item) => new Date(item.date));
+          // console.log(blockedDates);
 
     })
-        .catch((e) => console.error('RDL', e))
+        .catch((e) => console.error('RDL', e));
 
-    return blockedDates.sort((a, b) => a - b);
+    sortedBlockedDates = blockedDates.sort((a, b) => a - b);
+
+    return sortedBlockedDates;
   }
 
   // Check to see if the default date is blocked
-  // and if so find a non-blocked date
+  // and if so, find a non-blocked date
   let dateObjNow = new Date();
   function getDefaultDate(blocked) {
     blocked.forEach(item => {
       if(item.toLocaleDateString() === dateObjNow.toLocaleDateString()) {
         dateObjNow = new Date(dateObjNow.setDate(dateObjNow.getDate() + 1));
-        // console.log(dateObjNow);
       }
     })
     return dateObjNow;
   }
 
-  // Update DOM after window load
+  // Alert
+  function openAlert(message) {
+    const alertMessage = document.createElement('div');
+    alertMessage.setAttribute('id', 'alertMessage');
+    alertMessage.classList.add('alert-message-container');
+    alertMessage.innerHTML =
+        `<p>${message}</p>`
+    modal.clearContent();
+    modal.modalContent.appendChild(alertMessage);
+    modal.open(config.provider);
+  }
+
+  // Update DOM after window.load
   window.addEventListener('load', function () {
 
     console.log('Window loaded!');
@@ -396,7 +409,7 @@ export default function (config){
     const person = selectCovers.dataset.labelPerson || 'person';
     const people = selectCovers.dataset.labelPeople || 'people';
 
-    // Create booking request summary
+    // Create a booking request summary
     bkgForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -405,9 +418,36 @@ export default function (config){
       bkgParams.bkgSize = document.getElementById('selectCovers').value;
       bkgParams.bkgTime = document.getElementById('selectTime').value;
 
-      // Display request summary
-      openBookingRequestSummary();
+      // Double-check that a blocked date has not been selected
+      // iOS doesn't support the disabling of dates from their native date picker,
+      // so we need to catch any blocked dates at this point
+      // and stop the request being made.
+      let requestedDateBlocked = false;
+      let requestedDate = null;
+      sortedBlockedDates.find(d => {
+        if(d.toLocaleDateString() === new Date(bkgParams.bkgDate).toLocaleDateString()) {
+          requestedDateBlocked = true;
+          requestedDate = d.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+          return true;
+        }
+        console.log(d.toLocaleDateString());
+      });
 
+      if(!requestedDateBlocked) {
+        openBookingRequestSummary();
+      } else {
+        let msg;
+        switch(htmlLang) {
+          case 'fr':
+            msg = `Désolé, mais nous n'avons aucune disponibilité pour le <strong>${requestedDate}</strong>. Si possible, veuillez sélectionner une autre date.`
+            break;
+          default: {
+            msg = `Sorry, but we don't have any availability on <strong>${requestedDate}</strong>. If possible, please choose an alternative date.`
+            break;
+           }
+        }
+        openAlert(msg);
+      }
     });
 
     // Update the mock cover & time select fields
@@ -422,6 +462,7 @@ export default function (config){
 
     // build DOM elements
     const options = document.createDocumentFragment();
+
     // Cover select
     for (let i = 1; i <= bkgMaxCovers; i++) {
       let opt = document.createElement('option');
@@ -433,18 +474,16 @@ export default function (config){
     }
     selectCovers.appendChild(options);
 
-    // load disabled dates & init calendar picker
+    // load disabled dates and init calendar picker
     initDatePicker(bkgAdvDays || 60)
         .then((blockedDatesArray) => {
           const fp = flatpickr (selectDate, {
             dateFormat: 'D, d M Y',
             defaultDate: getDefaultDate(blockedDatesArray),
-            disable: blockedDatesArray,
+            disable: iOS ? [] : blockedDatesArray,
             minDate: 'today',
-            // Max date doesn't play nicely on iPhone/iPad
-            maxDate: iOS ? null : new Date().fp_incr(bkgAdvDays),
+            maxDate: new Date().fp_incr(bkgAdvDays),
             monthSelectorType: 'static',
-            disableMobile: "false",
             locale: htmlLang === 'fr' ? French : 'en',
             wrap: true,
             clickOpens: false,
@@ -457,14 +496,7 @@ export default function (config){
           selectDate.addEventListener('click', () => {
             fp.open();
           });
-          // Hide if flatpickr activates the mobile UI
-          // which uses a native date picker
-          if(!!document.querySelector('.flatpickr-mobile')) {
-            const elems = document.querySelectorAll('.hide-on-mobile');
-            elems.forEach( el => {
-              el.style.opacity = '0';
-            })
-          }
+
         });
 
   });
