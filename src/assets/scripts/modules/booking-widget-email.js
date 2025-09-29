@@ -424,7 +424,6 @@ export default function (config){
       // and stop the request being made.
       let requestedDateBlocked = false;
       let requestedDate = null;
-
       sortedBlockedDates.find(d => {
         if(d.toLocaleDateString() === new Date(bkgParams.bkgDate).toLocaleDateString()) {
           requestedDateBlocked = true;
@@ -485,7 +484,7 @@ export default function (config){
             minDate: 'today',
             maxDate: new Date().fp_incr(bkgAdvDays),
             monthSelectorType: 'static',
-            disableMobile: iOS ? true : "false",
+            disableMobile: "false",
             locale: htmlLang === 'fr' ? French : 'en',
             wrap: true,
             clickOpens: false,
