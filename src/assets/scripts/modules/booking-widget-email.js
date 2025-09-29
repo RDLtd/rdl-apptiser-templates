@@ -2,7 +2,7 @@ import flatpickr from 'flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr';
 import * as modal from './booking-modal';
 
-const api= process.env.NODE_ENV === 'production'
+const api= process.env.NODE_ENV !== 'production'
     ? `https://api.restaurantcollective.io`
     : `http://localhost:4000`;
 
@@ -56,6 +56,7 @@ export default function (config){
   bkgForm.setAttribute('id', 'bkgRequestForm');
   bkgForm.setAttribute('aria-label', 'Booking request form');
   const iOS = !!navigator.userAgent.match(/(iPad|iPhone)/g);
+  console.log(`iOS: ${iOS}`);
 
   bkgForm.innerHTML =
       `<div class="selector">
@@ -371,7 +372,6 @@ export default function (config){
     blocked.forEach(item => {
       if(item.toLocaleDateString() === dateObjNow.toLocaleDateString()) {
         dateObjNow = new Date(dateObjNow.setDate(dateObjNow.getDate() + 1));
-        // console.log(dateObjNow);
       }
     })
     return dateObjNow;
@@ -442,7 +442,7 @@ export default function (config){
             msg = `Désolé, mais nous n'avons aucune disponibilité pour le <strong>${requestedDate}</strong>. Si possible, veuillez sélectionner une autre date.`
             break;
           default: {
-            msg = `Sorry, but we don't have any availability on <strong>${requestedDate}</strong>. If possible, please select an alternative date.`
+            msg = `Sorry, but we don't have any availability on <strong>${requestedDate}</strong>. If possible, please choose an alternative date.`
             break;
            }
         }
@@ -480,11 +480,10 @@ export default function (config){
           const fp = flatpickr (selectDate, {
             dateFormat: 'D, d M Y',
             defaultDate: getDefaultDate(blockedDatesArray),
-            disable: blockedDatesArray,
+            disable: iOS ? [] : blockedDatesArray,
             minDate: 'today',
             maxDate: new Date().fp_incr(bkgAdvDays),
             monthSelectorType: 'static',
-            disableMobile: "false",
             locale: htmlLang === 'fr' ? French : 'en',
             wrap: true,
             clickOpens: false,
@@ -497,14 +496,7 @@ export default function (config){
           selectDate.addEventListener('click', () => {
             fp.open();
           });
-          // Hide if flatpickr activates the mobile UI
-          // which uses a native date picker
-          if(!!document.querySelector('.flatpickr-mobile')) {
-            const elems = document.querySelectorAll('.hide-on-mobile');
-            elems.forEach( el => {
-              el.style.opacity = '0';
-            })
-          }
+
         });
 
   });
