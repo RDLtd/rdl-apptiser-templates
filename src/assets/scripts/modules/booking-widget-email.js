@@ -1,12 +1,7 @@
 import flatpickr from 'flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr';
 import * as modal from './booking-modal';
-
-const api= process.env.NODE_ENV === 'production'
-    ? `https://api.restaurantcollective.io`
-    : `http://localhost:4000`;
-
-console.log('API', api);
+import { app } from './app-config';
 
 /**
  * @param config
@@ -238,7 +233,7 @@ export default function (config){
     btnSubmit.disabled = true;
 
     // Send
-    fetch(`${api}/public/sendbookingemail`, {
+    fetch(`${app.server}/public/sendbookingemail`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -335,7 +330,7 @@ export default function (config){
     let blockedDates = [];
 
     // wait until we've fetched any blacked dates
-    await fetch(`${api}/public/blocked`, {
+    await fetch(`${app.server}/public/blocked`, {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -450,7 +445,7 @@ export default function (config){
       }
     });
 
-    // Update the mock cover & time select fields
+    // Update the mock cover and time select fields
     selectCovers.addEventListener('change', (e) => {
       const covers = e.target;
       document.getElementById('txtCovers').innerHTML = covers?.value;
