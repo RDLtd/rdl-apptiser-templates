@@ -4,4 +4,4 @@ const app = {
     server: process.env.NODE_ENV === 'production' ? `https://api.apptiser.io` : `http://localhost:4000`
 }
 
-export default app;
+export { app };
