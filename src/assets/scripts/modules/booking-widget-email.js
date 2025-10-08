@@ -1,7 +1,7 @@
 import flatpickr from 'flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr';
 import * as modal from './booking-modal';
-import app from './app-config';
+import * as app from './app-config';
 
 /**
  * @param config
