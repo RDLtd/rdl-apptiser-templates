@@ -1,7 +1,7 @@
 import flatpickr from 'flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr';
 import * as modal from './booking-modal';
-import { app } from './app-config';
+import * as app from './app-config';
 
 const api= process.env.NODE_ENV === 'production'
     ? `https://api.restaurantcollective.io`
@@ -34,13 +34,9 @@ export default function (data){
   const roomsWidgetContainer = document.getElementById('roomsWidgetContainer');
   roomsWidgetContainer.classList.add('room-request-container');
 
-  // Is this an iOS device?
-  const iOS = /iPad|iPhone/.test(navigator.userAgent);
-
   // Set element references
   const htmlData = document.querySelector('html').dataset;
   const htmlLang = htmlData.lang;
-  const domFragment = document.createDocumentFragment();
 
   const roomsBkgForm = document.createElement('form');
   roomsBkgForm.classList.add('form-room-request');

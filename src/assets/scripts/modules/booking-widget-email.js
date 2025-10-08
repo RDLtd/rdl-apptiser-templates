@@ -3,6 +3,8 @@ import { French } from 'flatpickr/dist/l10n/fr';
 import * as modal from './booking-modal';
 import * as app from './app-config';
 
+
+
 /**
  * @param config
  * @param config.provider
@@ -233,7 +235,7 @@ export default function (config){
     btnSubmit.disabled = true;
 
     // Send
-    fetch(`${app.server}/public/sendbookingemail`, {
+    fetch(`${app.api}/public/sendbookingemail`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -330,7 +332,7 @@ export default function (config){
     let blockedDates = [];
 
     // wait until we've fetched any blacked dates
-    await fetch(`${app.server}/public/blocked`, {
+    await fetch(`${server}/public/blocked`, {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
