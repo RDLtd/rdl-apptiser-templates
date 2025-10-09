@@ -1,11 +1,6 @@
 import flatpickr from 'flatpickr';
 import { French } from 'flatpickr/dist/l10n/fr';
 import * as modal from './booking-modal';
-import * as app from './app-config';
-
-const api= process.env.NODE_ENV === 'production'
-    ? `https://api.restaurantcollective.io`
-    : `http://localhost:4000`;
 
 // Added for debug
 // import uaDetection from './ua-detection';
@@ -169,7 +164,7 @@ export default function (data){
           let blockedDates = [];
 
           // wait until we've fetched any blacked dates
-          await fetch(`${api}/public/blockedroomdates`, {
+          await fetch(`${app.api}/public/blockedroomdates`, {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -257,7 +252,7 @@ export default function (data){
     btnSubmit.disabled = true;
 
     // Send
-    fetch(`${ app.server }/public/sendroomemail`, {
+    fetch(`${ app.api }/public/sendroomemail`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
