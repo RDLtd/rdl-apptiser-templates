@@ -1,5 +1,7 @@
+
 const app = {
-    isProd: process.env.NODE_ENV === 'production',
-    server: process.env.NODE_ENV === 'production'? `https://api.restaurantcollective.io` : `http://localhost:4000`
-}
-export { app }
+    isProd: (process.env.NODE_ENV === 'production'),
+    api: process.env.NODE_ENV === 'production' ? `https://api.apptiser.io` : `https://localhost:4000`
+};
+
+export default app;

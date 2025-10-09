@@ -1,9 +1,8 @@
+import app from './modules/app-config';
 
-import { app } from './modules/app-config';
 
-
-console.log(`Production = ${app.isProd}`);
-console.log(`Api Server = ${app.server}`);
+console.log(`Production: ${app.isProd}`);
+console.log(`Api: ${app.api}`);
 
 // If in production kill console.logs
 if (app.isProd) { console.log = () => {}; }
