@@ -180,7 +180,7 @@ export default function (config){
                 </div>
                 <!-- Telephone -->
                 <div class="text-field">
-                  <input id="tel" type="text" name="tel" placeholder=" " required pattern="^[0][0-9 ]{10,12}$" title="Numbers only please, starting with a zero">
+                  <input id="tel" type="text" name="tel" placeholder=" " required pattern="^[0][0-9 ]{9,12}$">
                     <label for="tel">${config.labelTel}</label>
                 </div>
                 <p>${config.warning} <strong>${config.name}</strong>.</p>
